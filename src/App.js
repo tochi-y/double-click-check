@@ -8,12 +8,17 @@ class App extends Component {
     super(props);
     this.state = {
       count: 0,
+      isSending: false,
     };
   }
 
   handleClick(e) {
+    if (this.state.isSending) return;
     this.setState(prevState => {
-      return { count: prevState.count + 1 };
+      return {
+        count: prevState.count + 1,
+        isSending: true,
+      };
     });
   };
 
@@ -27,7 +32,12 @@ class App extends Component {
         <p className="App-intro">
           {this.state.count}回ボタンを押されました!
         </p>
-        <Button variant="contained" color="primary" onClick={(e) => this.handleClick(e)}>
+        <Button
+          variant="contained"
+          color="primary"
+          disabled={this.state.isSending}
+          onClick={(e) => this.handleClick(e)}
+        >
           連打しても無駄だよ
         </Button>
       </div>
